@@ -36,8 +36,7 @@ public class LTCafeWall {
          } // End of For Loop
          
          y += boxSize + 2;
-         x = blackBoxX;
-         
+         blackBoxX -= boxSize * pairs * 2;
       } // End of For Loop
    } // End of row Method
 } // End of Class
