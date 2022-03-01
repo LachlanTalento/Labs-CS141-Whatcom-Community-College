@@ -6,7 +6,7 @@ public class LTDTGuess {
       Random rand = new Random();
       
       // Define variables 
-      int answer();
+      int answer;
       int numTries;
       int bestGuess = 1000000000;
       instructions();  
