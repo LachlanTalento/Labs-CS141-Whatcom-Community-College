@@ -8,14 +8,14 @@ import java.util.*;
 public class LTDTGuess {
    public static void main(String[] args) {
    Scanner input = new Scanner(System.in);
-   
+
    // Declare variables
    char playAgain = 'Y';
    int sum = 0;
    int gameCount = 0;
    int numTries;
    int bestGuess = 1000000000;
-   
+
    instructions();
 
       while (playAgain == 'Y' || playAgain == 'y') {
@@ -26,12 +26,12 @@ public class LTDTGuess {
          System.out.println("Do you want to play again?");
          playAgain = input.next().charAt(0); 
          System.out.println();
-         
+
          // need to figure out how to pick the best game
       } // emd of while loop
          report(sum, gameCount, bestGuess);
    } // end of main
-   
+
    public static void instructions() {
       System.out.println("This program will run a guessing game.");
       System.out.println("I will think of a number between 1 and");
@@ -42,18 +42,18 @@ public class LTDTGuess {
       System.out.println("guess.");
       System.out.println(); 
    } // end of instructions
+   
    public static int playGame(Scanner input, char playAgain) { // Play one game with the user
 
       // Define variables
       int range = 100;
       int guess;
       int numTries = 1;
-      
+
       // Computer thinks of a number
       Random rand = new Random();
       int randomNumber = rand.nextInt(range) + 1;
-      // System.out.println(randomNumber);// random number debugger
-      // I'm thinking of a number between 1 and range
+      // System.out.println(randomNumber); // random number debugger
       System.out.println("I'm thinking of a number between 1 and " + range);
       // get a response and save to guess
       System.out.println("Enter guess:");
@@ -62,26 +62,32 @@ public class LTDTGuess {
          if (guess > randomNumber) {
             System.out.println("It's lower");
             numTries++;
-            
+
          } else { // it's less than
             System.out.println("It's higher");
             numTries++;
          } // end of if/else
-         
+
          System.out.println("Enter guess:");
          guess = input.nextInt();
       } // end of while loop
-      
+
       System.out.println("Congrats, you got it in " + numTries + " tries!");
       return numTries;
    } // end of playGame method
-   public static void report(int sum, int gameCount, int calcBest) {
-      System.out.println("Total Games: " + gameCount);
-      System.out.println("Total Guesses: " + sum);
-      System.out.println("Guesses/Game: " + sum / gameCount);
-      System.out.println("Best Guess: " + calcBest);
+   
+   public static void report(int sum, int gameCount, int calcBest) { // Creates overall result
+      double guessGame = (double) sum / (double) gameCount;
+
+   
+      System.out.printf("Overall results: %n");
+      System.out.printf("\tTotal Games: %d%n", gameCount);
+      System.out.printf("\tTotal Guesses: %d%n", sum);
+      System.out.println("\tGuesses/Game: " + Math.round(guessGame));  // Rounds up guesses per game
+      System.out.println("\tBest Guess: " + calcBest);
+      
    } // end of report method
-   public static int calcBest(int x, int y) {
+   public static int calcBest(int x, int y) { // Calculates best guess
       if (x < y) {
          return x;
       } else {
