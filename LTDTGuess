@@ -3,6 +3,7 @@
 // CS &141 Hybrid
 // Lab 4 Guessing Game
 // This program will start a guessing game of a number picked at random
+// For extra credit we used the round method
 import java.util.*;
 
 public class LTDTGuess {
