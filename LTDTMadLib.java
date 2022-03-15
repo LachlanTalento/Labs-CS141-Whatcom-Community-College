@@ -28,7 +28,7 @@ public class LTDTMadLib {
             String inputFileName = readInput(input, run);
             String outputFileName = readOutput(input, run);
             
-            readInput();
+            createML();
             break;
          case 'v':
          case 'V':
@@ -91,7 +91,7 @@ public class LTDTMadLib {
          
       return outputFileName;
    }
-   public static void readInput() {
+   public static void createML() {
    
    }
    public static void viewML() {
