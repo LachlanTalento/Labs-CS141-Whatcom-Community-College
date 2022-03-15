@@ -25,7 +25,10 @@ public class LTDTMadLib {
       switch (option) {
          case 'c':
          case 'C':
-            createML(input, run);
+            String inputFileName = readInput(input, run);
+            String outputFileName = readOutput(input, run);
+            
+            readInput();
             break;
          case 'v':
          case 'V':
@@ -55,11 +58,13 @@ public class LTDTMadLib {
       
       return option;
    }
-   public static void createML(Scanner input, boolean run) {
+   public static String readInput(Scanner input, boolean run) {
+      String inputFileName;
+      
       do {
          System.out.print("Input file name: ");
-         String fileName = input.next();
-         File file = new File (fileName);
+         inputFileName = input.next();
+         File file = new File (inputFileName);
 
          if (file.exists()) {
             run = false;
@@ -68,20 +73,26 @@ public class LTDTMadLib {
          }
          } while (run == true); 
          
-         run = true;
-         
+      return inputFileName;
+   }
+   public static String readOutput(Scanner input, boolean run) {
+      String outputFileName;
       do {
          System.out.print("Output file name: ");
-         String fileName = input.next();
-         File file = new File (fileName);
-         
+         outputFileName = input.next();
+         File file = new File (outputFileName);
+
          if (file.exists()) {
             run = false;
          } else {
             System.out.println("File not found.");
          }
-         } while (run == true);
-      
+         } while (run == true); 
+         
+      return outputFileName;
+   }
+   public static void readInput() {
+   
    }
    public static void viewML() {
       
