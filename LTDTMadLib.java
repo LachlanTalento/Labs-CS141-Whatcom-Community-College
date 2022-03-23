@@ -3,15 +3,15 @@
 // CS &141
 // Lab #5 MadLib
 //
-// This program will do the following:
+// his program will prompt the user for different types of words that will replace the placeholders within a Mad Lib text.
 //
-// We got all this working, but
+// We got all this working, but we weren't able to start each sentence on a new line for the output text
 
 import java.io.*; // Import input and output
 import java.util.*; // import Scanner
 
 public class LTDTMadLib {
-   public static void main(String[] args) {
+   public static void main(String[] args) throws FileNotFoundException {
       Scanner input = new Scanner(System.in);
       
       // Initializing Variables
@@ -25,14 +25,11 @@ public class LTDTMadLib {
       switch (option) {
          case 'c':
          case 'C':
-            String inputFileName = readInput(input, run);
-            String outputFileName = readOutput(input, run);
-            
-            createML();
+            createML(input);
             break;
          case 'v':
          case 'V':
-            viewML();
+            viewML(input);
             break;
          case 'q':
          case 'Q':
@@ -50,7 +47,7 @@ public class LTDTMadLib {
       System.out.println("and phrases to fill out a story.");
       System.out.println("The result will be written to an output file.\n");
    }
-   public static char menu(Scanner input) {
+   public static char menu(Scanner input) throws FileNotFoundException{
       System.out.print("(C)reate mad-lib, (V)iew mad-lib, (Q)uit? ");
       
       String x = input.next();
@@ -58,43 +55,70 @@ public class LTDTMadLib {
       
       return option;
    }
-   public static String readInput(Scanner input, boolean run) {
-      String inputFileName;
+   public static void createML(Scanner input) throws FileNotFoundException {
+      System.out.println("Input file name: ");
+      String nameIn = input.next();
+      File f1 = new File(nameIn);
       
-      do {
-         System.out.print("Input file name: ");
-         inputFileName = input.next();
-         File file = new File (inputFileName);
-
-         if (file.exists()) {
-            run = false;
-         } else {
-            System.out.println("File not found.");
-         }
-         } while (run == true); 
+      while(!f1.exists()) {
+         nameIn = input.next();
+      }
+      
+      System.out.println("Output file name: ");
+      String nameOut = input.next();
+      File out = new File(nameOut);
+      PrintStream output = new PrintStream(out);
+      
+      Scanner answers = new Scanner(f1);
+      String allFile = "";
+      
+      while(answers.hasNext() || answers.hasNextLine()) {
+         allFile = answers.nextLine() + "\n";
+      
          
-      return inputFileName;
-   }
-   public static String readOutput(Scanner input, boolean run) {
-      String outputFileName;
-      do {
-         System.out.print("Output file name: ");
-         outputFileName = input.next();
-         File file = new File (outputFileName);
+      Scanner answers2 = new Scanner(allFile);
+      while(answers2.hasNext()){
+         String text = answers2.next();
 
-         if (file.exists()) {
-            run = false;
+         if(text.startsWith("<") && text.endsWith(">")){
+            char a = text.charAt(1);
+            //String vowels = vowels(a);
+            text = text.replace('<', ' ');
+            text = text.replace('>', ' ');
+            text = text.replace('-', ' ');
+            System.out.println("Please type" + text + ":");
+            String in = input.next();
+            output.print(" " + in + " ");
          } else {
-            System.out.println("File not found.");
+            output.print(" " + text + " ");
+//             allFile = allFile.replaceFirst("<"+text+">", in);
+//             allFile = allFile.replace(" .", ".");
+//             
          }
-         } while (run == true); 
          
-      return outputFileName;
+      }
+      output.println();
+//             output.print(allFile);
+         }
    }
-   public static void createML() {
-   
+   public static void viewML(Scanner input) throws FileNotFoundException{
+      System.out.println();
+      Scanner prev = new Scanner(System.in);
+      System.out.println("Enter file name: ");
+      File f = new File(prev.nextLine());
+      
+      while(!f.canRead()) {
+         System.out.println("No such file name, please try again.");
+         f = new File(prev.nextLine());
+      }
+      
+      Scanner console = new Scanner(f);
+      while(console.hasNext() || console.hasNextLine()) {
+         String next = console.nextLine();
+         System.out.println(next);
+      }
    }
-   public static void viewML() {
+   public static void vowels() { // replaces an for a if word starts with vowel
       
    }
 }
